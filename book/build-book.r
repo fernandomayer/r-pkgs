@@ -1,3 +1,13 @@
+## change dir up - to be in r-pkgs/
+getwd()
+setwd("../")
+getwd()
+
+## install packages
+# pkgs <- c("pryr", "nycflights13")
+# install.packages(pkgs, dep = T)
+# devtools::install_github("hadley/bookdown")
+
 library(bookdown)
 library(rmarkdown)
 
@@ -35,10 +45,23 @@ source_clean <- function(path) {
 chapters <- dir(".", pattern = "\\.rmd$")
 lapply(chapters, render_chapter)
 
+##----------------------------------------------------------------------
+## To insert a cover page with the book cover:
+# enter book/r-packages.tex and insert this code just below
+# \begin{document}
+# \begin{titlepage}
+#     \centering
+#     \begin{figure}[p]
+#     \includegraphics[width=1.1\textwidth]{cover.png}
+#   \end{figure}
+# \end{titlepage}
+##----------------------------------------------------------------------
+
 # Copy across additional files -------------------------------------------------
 file.copy("book/r-packages.tex", "book/tex/", recursive = TRUE)
 file.copy("diagrams/", "book/tex/", recursive = TRUE)
 file.copy("screenshots/", "book/tex/", recursive = TRUE)
+file.copy("cover.png", "book/tex/")
 
 # Build tex file ---------------------------------------------------------------
 # (build with Rstudio to find/diagnose errors)
